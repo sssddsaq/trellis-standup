@@ -15,13 +15,20 @@
   --radius: 10px;
   --max-width: 640px;
   --danger: #c0392b;
+  --did-color: #2563eb;
+  --next-color: #7c3aed;
+  --stuck-color: #d97706;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
 }
 
 body {
   font-family: var(--font);
   color: var(--ink);
-  background: var(--paper-alt);
+  background:
+    radial-gradient(circle at 15% 0%, rgba(37, 99, 235, 0.07), transparent 45%),
+    radial-gradient(circle at 100% 15%, rgba(124, 58, 237, 0.06), transparent 40%),
+    var(--paper-alt);
+  min-height: 100vh;
   line-height: 1.55;
 }
 
@@ -37,7 +44,7 @@ a {
 
 .site-header {
   background: var(--paper);
-  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 var(--border);
   padding: 18px 0;
   margin-bottom: 32px;
 }
@@ -82,16 +89,42 @@ h1 {
   margin-bottom: 28px;
 }
 
+.form-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 1px 3px rgba(22, 24, 29, 0.04), 0 8px 24px rgba(22, 24, 29, 0.05);
+}
+
 .field {
   margin-bottom: 18px;
 }
 
 .field label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 6px;
 }
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+  flex-shrink: 0;
+}
+
+.field-did .dot { background: var(--did-color); }
+.field-next .dot { background: var(--next-color); }
+.field-stuck .dot { background: var(--stuck-color); }
+
+.field-did textarea:focus { border-color: var(--did-color); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); }
+.field-next textarea:focus { border-color: var(--next-color); box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+.field-stuck textarea:focus { border-color: var(--stuck-color); box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12); }
 
 select,
 textarea {
@@ -99,17 +132,19 @@ textarea {
   font-family: var(--font);
   font-size: 0.98rem;
   color: var(--ink);
-  background: var(--paper);
+  background: var(--paper-alt);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 14px;
   resize: vertical;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 select:focus,
 textarea:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .btn {
@@ -121,19 +156,29 @@ textarea:focus {
   border: none;
   cursor: pointer;
   font-family: var(--font);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn-primary {
   background: var(--accent);
   color: #fff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
 }
 
 .btn-primary:hover {
   background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
 }
 
 .result {
   margin-top: 40px;
+  animation: rise 0.35s ease;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .result.hidden {
@@ -150,6 +195,7 @@ textarea:focus {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 24px;
+  box-shadow: 0 1px 3px rgba(22, 24, 29, 0.04), 0 8px 24px rgba(22, 24, 29, 0.05);
 }
 
 .card-name {
@@ -169,6 +215,10 @@ textarea:focus {
 .card-label:first-of-type {
   margin-top: 0;
 }
+
+.card-label.did { color: var(--did-color); }
+.card-label.next { color: var(--next-color); }
+.card-label.stuck { color: var(--stuck-color); }
 
 .card-text {
   margin-top: 4px;
