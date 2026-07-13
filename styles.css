@@ -135,8 +135,8 @@ textarea {
   font-family: var(--font);
   font-size: 0.98rem;
   color: var(--ink);
-  background: var(--paper-alt);
-  border: 1px solid var(--border);
+  background: transparent;
+  border: 1.5px solid rgba(124, 58, 237, 0.45);
   border-radius: 8px;
   padding: 12px 14px;
   resize: vertical;
