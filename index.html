@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trellis Standup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <span class="logo">Trellis<span>Standup</span></span>
+      <a href="team.html" class="link-secondary">Team page →</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Post today's update</h1>
+    <p class="lead">Three short lines. Takes a minute.</p>
+
+    <form id="updateForm" novalidate>
+      <div class="field">
+        <label for="name">Your name</label>
+        <select id="name" name="name" required>
+          <option value="" disabled selected>Choose your name</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="did">Did — what I did</label>
+        <textarea id="did" name="did" rows="3" required placeholder="What did you get done today?"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="next">Next — what I'm doing next</label>
+        <textarea id="next" name="next" rows="3" required placeholder="What's next?"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="stuck">Stuck — where I'm stuck</label>
+        <textarea id="stuck" name="stuck" rows="3" placeholder="Anything blocking you? (optional — write 'nothing' if not)"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit update</button>
+    </form>
+
+    <section id="result" class="result hidden" aria-live="polite">
+      <h2>Your update</h2>
+      <div class="card">
+        <p class="card-name" id="resultName"></p>
+        <p class="card-label">Did</p>
+        <p class="card-text" id="resultDid"></p>
+        <p class="card-label">Next</p>
+        <p class="card-text" id="resultNext"></p>
+        <p class="card-label">Stuck</p>
+        <p class="card-text" id="resultStuck"></p>
+      </div>
+      <p class="note">This is a preview only — nothing is saved yet.</p>
+    </section>
+  </main>
+
+  <script src="names.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
