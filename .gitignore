@@ -1,0 +1,8 @@
+# Local Netlify folder
+.netlify
+
+# Local Supabase CLI cache
+supabase/.temp
+
+node_modules
+.env

@@ -43,10 +43,11 @@
       </div>
 
       <button type="submit" class="btn btn-primary">Submit update</button>
+      <p id="formError" class="form-error hidden">Couldn't save that — check your connection and try again.</p>
     </form>
 
     <section id="result" class="result hidden" aria-live="polite">
-      <h2>Your update</h2>
+      <h2>Saved</h2>
       <div class="card">
         <p class="card-name" id="resultName"></p>
         <p class="card-label did">Did</p>
@@ -56,7 +57,7 @@
         <p class="card-label stuck">Stuck</p>
         <p class="card-text" id="resultStuck"></p>
       </div>
-      <p class="note">This is a preview only — nothing is saved yet.</p>
+      <p class="note">Your update for today is saved. Submitting again today will update this instead of adding a new one.</p>
     </section>
   </main>
 

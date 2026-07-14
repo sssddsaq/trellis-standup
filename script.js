@@ -8,8 +8,10 @@ TEAM_NAMES.forEach((name) => {
 
 const form = document.getElementById('updateForm');
 const result = document.getElementById('result');
+const submitBtn = form.querySelector('button[type="submit"]');
+const errorEl = document.getElementById('formError');
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   if (!form.checkValidity()) {
@@ -18,12 +20,39 @@ form.addEventListener('submit', (event) => {
   }
 
   const data = new FormData(form);
+  const payload = {
+    name: data.get('name'),
+    did: data.get('did'),
+    next: data.get('next'),
+    stuck: data.get('stuck'),
+  };
 
-  document.getElementById('resultName').textContent = data.get('name');
-  document.getElementById('resultDid').textContent = data.get('did');
-  document.getElementById('resultNext').textContent = data.get('next');
-  document.getElementById('resultStuck').textContent = data.get('stuck') || 'Nothing noted.';
+  errorEl.classList.add('hidden');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Saving…';
 
-  result.classList.remove('hidden');
-  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  try {
+    const response = await fetch('/.netlify/functions/save-update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error('Save failed');
+    }
+
+    document.getElementById('resultName').textContent = payload.name;
+    document.getElementById('resultDid').textContent = payload.did;
+    document.getElementById('resultNext').textContent = payload.next;
+    document.getElementById('resultStuck').textContent = payload.stuck || 'Nothing noted.';
+
+    result.classList.remove('hidden');
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (err) {
+    errorEl.classList.remove('hidden');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit update';
+  }
 });
