@@ -45,6 +45,10 @@ a {
   padding: 0 20px;
 }
 
+.container-wide {
+  max-width: 980px;
+}
+
 .site-header {
   background: var(--paper);
   box-shadow: 0 1px 0 var(--border);
@@ -249,4 +253,92 @@ textarea:focus {
   margin-top: 12px;
   font-size: 0.85rem;
   color: var(--ink-soft);
+}
+
+/* ---------- Team page ---------- */
+.missing-card {
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+}
+
+.missing-card.hidden {
+  display: none;
+}
+
+.missing-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--stuck-color);
+  margin-bottom: 10px;
+}
+
+.missing-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.missing-pill {
+  background: var(--paper);
+  border: 1px solid rgba(217, 119, 6, 0.35);
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.cards-grid .card {
+  animation: rise 0.3s ease;
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.card-time {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.badge-ontime {
+  background: rgba(22, 163, 74, 0.12);
+  color: #15803d;
+}
+
+.badge-late {
+  background: rgba(192, 57, 43, 0.1);
+  color: var(--danger);
+}
+
+.form-error:not(.hidden) {
+  margin-top: 0;
+  margin-bottom: 20px;
 }

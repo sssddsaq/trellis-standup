@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team — Trellis Standup</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563eb'/%3E%3Ctext x='50' y='68' font-family='sans-serif' font-weight='700' font-size='54' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container container-wide header-inner">
+      <span class="logo">Trellis<span>Standup</span></span>
+      <a href="index.html" class="link-secondary">Post an update →</a>
+    </div>
+  </header>
+
+  <main class="container container-wide">
+    <h1>Today's team update</h1>
+    <p class="lead" id="dateLine">Loading…</p>
+
+    <section id="missingSection" class="missing-card hidden">
+      <p class="missing-title">Not posted yet</p>
+      <div id="missingList" class="missing-list"></div>
+    </section>
+
+    <div id="loadingState" class="note">Loading today's updates…</div>
+    <div id="errorState" class="form-error hidden">Couldn't load updates — check your connection and refresh.</div>
+    <div id="emptyState" class="note hidden">No one has posted an update yet today.</div>
+
+    <div id="cardsGrid" class="cards-grid"></div>
+  </main>
+
+  <script src="names.js"></script>
+  <script src="team.js"></script>
+</body>
+</html>
