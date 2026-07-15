@@ -1,3 +1,14 @@
 [build]
   functions = "netlify/functions"
   publish = "."
+
+# Cron times are UTC. Asia/Riyadh is UTC+3 year-round (no DST), and the work
+# week is Sunday-Thursday (cron day-of-week 0-4).
+
+# 4:15pm Riyadh = 13:15 UTC
+[functions."daily-summary"]
+  schedule = "15 13 * * 0-4"
+
+# 4:30pm Riyadh = 13:30 UTC
+[functions."reminder"]
+  schedule = "30 13 * * 0-4"
