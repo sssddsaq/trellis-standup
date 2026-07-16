@@ -34,7 +34,7 @@ function renderCard(update) {
   card.innerHTML = `
     <div class="card-top">
       <div>
-        <p class="card-name">${update.name}</p>
+        <p class="card-name"></p>
         <p class="card-time">${formatRiyadhTime(update.created_at)} Riyadh time</p>
       </div>
       <span class="badge ${badgeClass}">${badgeText}</span>
@@ -47,6 +47,7 @@ function renderCard(update) {
     <p class="card-text"></p>
   `;
 
+  card.querySelector('.card-name').textContent = update.name;
   const textEls = card.querySelectorAll('.card-text');
   textEls[0].textContent = update.did;
   textEls[1].textContent = update.next;
@@ -55,10 +56,8 @@ function renderCard(update) {
   return card;
 }
 
-function renderMissing(postedNames) {
-  const missing = TEAM_NAMES.filter((name) => !postedNames.has(name));
-
-  if (missing.length === 0) {
+function renderMissing(missing) {
+  if (!missing || missing.length === 0) {
     missingSection.classList.add('hidden');
     return;
   }
@@ -84,8 +83,7 @@ async function loadTeamUpdates() {
     loadingState.classList.add('hidden');
     dateLine.textContent = formatRiyadhDate(data.date);
 
-    const postedNames = new Set(data.updates.map((u) => u.name));
-    renderMissing(postedNames);
+    renderMissing(data.missing);
 
     if (data.updates.length === 0) {
       emptyState.classList.remove('hidden');

@@ -18,7 +18,7 @@
 
   <main class="container">
     <h1>Post today's update</h1>
-    <p class="lead">Three short lines. Takes a minute.</p>
+    <p class="lead">Three short lines. Takes a minute. Post before 4:15 PM Riyadh time — after that it's marked late.</p>
 
     <form id="updateForm" class="form-card" novalidate>
       <div class="field">
@@ -30,17 +30,17 @@
 
       <div class="field field-did">
         <label for="did"><span class="dot"></span>Did — what I did</label>
-        <textarea id="did" name="did" rows="3" required placeholder="What did you get done today?"></textarea>
+        <textarea id="did" name="did" rows="3" required maxlength="2000" placeholder="What did you get done today?"></textarea>
       </div>
 
       <div class="field field-next">
         <label for="next"><span class="dot"></span>Next — what I'm doing next</label>
-        <textarea id="next" name="next" rows="3" required placeholder="What's next?"></textarea>
+        <textarea id="next" name="next" rows="3" required maxlength="2000" placeholder="What's next?"></textarea>
       </div>
 
       <div class="field field-stuck">
         <label for="stuck"><span class="dot"></span>Stuck — where I'm stuck</label>
-        <textarea id="stuck" name="stuck" rows="3" placeholder="Anything blocking you? (optional — write 'nothing' if not)"></textarea>
+        <textarea id="stuck" name="stuck" rows="3" maxlength="2000" placeholder="Anything blocking you? (optional — write 'nothing' if not)"></textarea>
       </div>
 
       <button type="submit" class="btn btn-primary">Submit update</button>

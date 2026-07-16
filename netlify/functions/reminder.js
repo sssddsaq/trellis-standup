@@ -1,8 +1,13 @@
 const { getTodayUpdates, getMissingNames } = require('./lib/updates');
 const { TEAM_NAMES } = require('./lib/roster');
 const { postToClickUp } = require('./lib/clickup');
+const { isAuthorizedTrigger } = require('./lib/trigger');
 
-exports.handler = async () => {
+exports.handler = async (event) => {
+  if (!isAuthorizedTrigger(event)) {
+    return { statusCode: 403, body: JSON.stringify({ error: 'Not authorized' }) };
+  }
+
   try {
     const { updates } = await getTodayUpdates();
     const missing = getMissingNames(TEAM_NAMES, updates);

@@ -1,6 +1,7 @@
 const { getTodayUpdates, getMissingNames, formatRiyadhTime, formatRiyadhDateLabel } = require('./lib/updates');
 const { TEAM_NAMES } = require('./lib/roster');
 const { postToClickUp } = require('./lib/clickup');
+const { isAuthorizedTrigger } = require('./lib/trigger');
 
 function buildSummaryMessage({ riyadhDate, updates, missing }) {
   const lines = [`**Trellis Standup — ${formatRiyadhDateLabel(riyadhDate)}**`, ''];
@@ -25,7 +26,11 @@ function buildSummaryMessage({ riyadhDate, updates, missing }) {
   return lines.join('\n').trim();
 }
 
-exports.handler = async () => {
+exports.handler = async (event) => {
+  if (!isAuthorizedTrigger(event)) {
+    return { statusCode: 403, body: JSON.stringify({ error: 'Not authorized' }) };
+  }
+
   try {
     const { riyadhDate, updates } = await getTodayUpdates();
     const missing = getMissingNames(TEAM_NAMES, updates);

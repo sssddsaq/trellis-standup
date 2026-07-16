@@ -1,4 +1,3 @@
-// Keep this in sync with names.js (the browser-side roster).
-const TEAM_NAMES = ['Abdulaziz', 'Saad'];
-
-module.exports = { TEAM_NAMES };
+// Re-export the shared roster from names.js so the browser pages and the
+// functions can never drift apart.
+module.exports = require('../../../names.js');

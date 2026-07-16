@@ -31,6 +31,8 @@ form.addEventListener('submit', async (event) => {
   submitBtn.disabled = true;
   submitBtn.textContent = 'Saving…';
 
+  const FALLBACK_ERROR = "Couldn't save that — check your connection and try again.";
+
   try {
     const response = await fetch('/.netlify/functions/save-update', {
       method: 'POST',
@@ -39,7 +41,12 @@ form.addEventListener('submit', async (event) => {
     });
 
     if (!response.ok) {
-      throw new Error('Save failed');
+      let message = FALLBACK_ERROR;
+      try {
+        const errBody = await response.json();
+        if (errBody && errBody.error) message = errBody.error;
+      } catch {}
+      throw new Error(message);
     }
 
     document.getElementById('resultName').textContent = payload.name;
@@ -50,6 +57,7 @@ form.addEventListener('submit', async (event) => {
     result.classList.remove('hidden');
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err) {
+    errorEl.textContent = err.message || FALLBACK_ERROR;
     errorEl.classList.remove('hidden');
   } finally {
     submitBtn.disabled = false;

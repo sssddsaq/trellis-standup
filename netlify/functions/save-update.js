@@ -1,3 +1,11 @@
+const { TEAM_NAMES } = require('./lib/roster');
+
+const MAX_FIELD_LENGTH = 2000;
+
+function cleanField(value) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
@@ -9,14 +17,26 @@ exports.handler = async (event) => {
   } catch {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON body' }) };
   }
+  if (!payload || typeof payload !== 'object') {
+    return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON body' }) };
+  }
 
-  const name = (payload.name || '').trim();
-  const did = (payload.did || '').trim();
-  const next = (payload.next || '').trim();
-  const stuck = (payload.stuck || '').trim();
+  const name = cleanField(payload.name);
+  const did = cleanField(payload.did);
+  const next = cleanField(payload.next);
+  const stuck = cleanField(payload.stuck);
 
   if (!name || !did || !next) {
     return { statusCode: 400, body: JSON.stringify({ error: 'name, did, and next are required' }) };
+  }
+  if (!TEAM_NAMES.includes(name)) {
+    return { statusCode: 400, body: JSON.stringify({ error: 'That name is not on the team roster' }) };
+  }
+  if (did.length > MAX_FIELD_LENGTH || next.length > MAX_FIELD_LENGTH || stuck.length > MAX_FIELD_LENGTH) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: `Each field must be ${MAX_FIELD_LENGTH} characters or fewer` }),
+    };
   }
 
   const SUPABASE_URL = process.env.SUPABASE_URL;
@@ -26,6 +46,9 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: JSON.stringify({ error: 'Server is missing Supabase configuration' }) };
   }
 
+  // Upsert: one row per person per Riyadh day. On resubmit, the text fields
+  // are replaced but created_at keeps the first submission time — editing an
+  // update later never changes whether it counted as on time.
   const response = await fetch(`${SUPABASE_URL}/rest/v1/updates?on_conflict=name,riyadh_date`, {
     method: 'POST',
     headers: {
