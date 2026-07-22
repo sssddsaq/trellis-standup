@@ -22,7 +22,7 @@ function isAuthorizedTrigger(event) {
       const body = JSON.parse(raw);
       if (body && body.next_run) return true;
     } catch {
-      // fall through — not a scheduler payload
+      // fall through, not a scheduler payload
     }
   }
 

@@ -47,7 +47,7 @@ exports.handler = async (event) => {
   }
 
   // Upsert: one row per person per Riyadh day. On resubmit, the text fields
-  // are replaced but created_at keeps the first submission time — editing an
+  // are replaced but created_at keeps the first submission time, editing an
   // update later never changes whether it counted as on time.
   const response = await fetch(`${SUPABASE_URL}/rest/v1/updates?on_conflict=name,riyadh_date`, {
     method: 'POST',

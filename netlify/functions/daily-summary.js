@@ -4,14 +4,14 @@ const { postToClickUp } = require('./lib/clickup');
 const { isAuthorizedTrigger } = require('./lib/trigger');
 
 function buildSummaryMessage({ riyadhDate, updates, missing }) {
-  const lines = [`**Trellis Standup — ${formatRiyadhDateLabel(riyadhDate)}**`, ''];
+  const lines = [`**Trellis Standup - ${formatRiyadhDateLabel(riyadhDate)}**`, ''];
 
   if (updates.length === 0) {
     lines.push('_No one has posted an update today._');
   } else {
     updates.forEach((u) => {
       const tag = u.on_time ? '✅' : '⚠️ Late';
-      lines.push(`**${u.name}** ${tag} — ${formatRiyadhTime(u.created_at)}`);
+      lines.push(`**${u.name}** ${tag} - ${formatRiyadhTime(u.created_at)}`);
       lines.push(`Did: ${u.did}`);
       lines.push(`Next: ${u.next}`);
       lines.push(`Stuck: ${u.stuck || 'Nothing noted.'}`);

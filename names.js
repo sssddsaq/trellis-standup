@@ -1,4 +1,4 @@
-// Team roster — the single source of truth for both the browser pages and
+// Team roster - the single source of truth for both the browser pages and
 // the Netlify functions. Edit this list to match the actual interns.
 const TEAM_NAMES = [
   'Abdulaziz',

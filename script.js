@@ -31,7 +31,7 @@ form.addEventListener('submit', async (event) => {
   submitBtn.disabled = true;
   submitBtn.textContent = 'Saving…';
 
-  const FALLBACK_ERROR = "Couldn't save that — check your connection and try again.";
+  const FALLBACK_ERROR = "Couldn't save that - check your connection and try again.";
 
   try {
     const response = await fetch('/.netlify/functions/save-update', {
